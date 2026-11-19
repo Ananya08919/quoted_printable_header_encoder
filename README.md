@@ -40,3 +40,10 @@ when you do not want to reason about the limit yourself.
   whole header value, folding with CRLF + space.  Raises ``ValueError`` if
   ``max_line_length`` is too small for any encoded-word, and ``TypeError`` for
   the wrong argument types.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
